@@ -14,4 +14,14 @@ export default class ControllerTeams {
       res.status(500).json(error);
     }
   };
+
+  getById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+      const team = await this.team.getById(id);
+      return res.status(200).json(team);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  };
 }

@@ -25,11 +25,11 @@ Users.init({
     allowNull: false,
   },
   email: {
-    type: STRING(30),
+    type: STRING(50),
     allowNull: false,
   },
   password: {
-    type: STRING(30),
+    type: STRING(100),
     allowNull: false,
   },
 }, {

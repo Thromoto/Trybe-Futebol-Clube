@@ -1,6 +1,5 @@
-import * as bcrypt from 'bcryptjs';
 import { ModelStatic } from 'sequelize';
-import { ILogin } from '../interfaces';
+import { IUsers } from '../interfaces';
 import ModelUser from '../models/Users';
 
 export default class ServiceUsers {
@@ -8,11 +7,9 @@ export default class ServiceUsers {
     this.user = user;
   }
 
-  public async login(user: ILogin): Promise<ILogin | null> {
-    const { email, password } = user;
+  public async login(user: Omit<IUsers, 'role' | 'username'>): Promise<IUsers | null> {
+    const { email } = user;
     const result = await this.user.findOne({ where: { email } });
-    const passwordCrypt = bcrypt.compare(password, result?.password || '');
-    if (!passwordCrypt) return null;
     return result;
   }
 }

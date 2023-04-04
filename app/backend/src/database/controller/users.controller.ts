@@ -1,17 +1,18 @@
 import { Request, Response } from 'express';
+import { compareSync } from 'bcryptjs';
 import ServiceUsers from '../services/users.service';
-import createJwt from '../utils/JWTfunctions';
+import { createJwt } from '../utils/JWTfunctions';
 
 export default class ControllerUsers {
   constructor(private user: ServiceUsers) {}
 
-  isBodyValid = (email: string, password: string) => email && password;
-
   login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     try {
-      if (!this.isBodyValid(email, password)) {
-        return res.status(400).json({ message: 'All fields must be filled' });
+      const data = await this.user.login({ email, password });
+
+      if (!data || !compareSync(password, data.password) || password.length < 6) {
+        return res.status(401).json({ message: 'Invalid email or password' });
       }
 
       const token = createJwt({ email, password });

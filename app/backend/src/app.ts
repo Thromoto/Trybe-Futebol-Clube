@@ -13,6 +13,8 @@ class App {
 
     this.app.use('/login', router.userRouter);
 
+    this.app.use('/matches', router.matchesRouter);
+
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
   }

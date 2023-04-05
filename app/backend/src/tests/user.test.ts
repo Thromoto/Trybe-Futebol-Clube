@@ -39,8 +39,41 @@ describe('Users & Login', () => {
   //   expect(...)
   // });
 
-  it('deve retornar um erro 400', async () => {
+  it('deve retornar um erro 400 caso o email não seja informado', async () => {
     const httpResponse = await chai.request(app).post('/login').send({})
     expect(httpResponse.status).to.equal(400);
+    expect(httpResponse.body).to.deep.equal({ message: 'All fields must be filled' });
+  })
+
+  it('deve retornar um erro 400 caso o password não seja informado', async () => {
+    const httpResponse = await chai.request(app)
+    .post('/login')
+    .send({
+        email: 'admin@admin.com'
+    })
+    expect(httpResponse.status).to.equal(400);
+    expect(httpResponse.body).to.deep.equal({ message: 'All fields must be filled' });
+  })
+
+  it('deve retornar um erro 401 caso o email não seja válido', async () => {
+    const httpResponse = await chai.request(app)
+    .post('/login')
+    .send({
+        email: 'admin.admin.com',
+        password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW',
+    })
+    expect(httpResponse.status).to.equal(401);
+    expect(httpResponse.body).to.deep.equal({ message: 'Invalid email or password' });
+  })
+
+  it('deve retornar um erro 401 caso o password não seja válido', async () => {
+    const httpResponse = await chai.request(app)
+    .post('/login')
+    .send({
+        email: 'admin@admin.com',
+        password: '12345',
+    })
+    expect(httpResponse.status).to.equal(401);
+    expect(httpResponse.body).to.deep.equal({ message: 'Invalid email or password' });
   })
 });

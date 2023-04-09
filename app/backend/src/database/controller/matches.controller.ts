@@ -20,4 +20,14 @@ export default class ControllerMatches {
       res.status(500).json(error);
     }
   };
+
+  finishingMatch = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      await this.matches.finishingMatch(Number(id));
+      return res.status(200).json({ message: 'Finished' });
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  };
 }

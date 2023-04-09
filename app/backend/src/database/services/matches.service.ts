@@ -16,4 +16,9 @@ export default class ServiceMatches {
     });
     return matches;
   }
+
+  public async finishingMatch(id: number) {
+    const matchId = await this.matches.update({ inProgress: false }, { where: { id } });
+    return matchId;
+  }
 }

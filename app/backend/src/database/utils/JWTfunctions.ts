@@ -1,5 +1,5 @@
 import { sign, SignOptions, verify } from 'jsonwebtoken';
-import { ILogin } from '../interfaces';
+import { IUsers } from '../interfaces';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'jwt_secret';
 
@@ -8,9 +8,8 @@ const jwtConfig: SignOptions = {
   expiresIn: '7d',
 };
 
-export const createJwt = (login: ILogin) => {
+export const createJwt = (login: Omit<IUsers, 'username'>) => {
   const token = sign(login, JWT_SECRET, jwtConfig);
-  console.log(login);
   return token;
 };
 

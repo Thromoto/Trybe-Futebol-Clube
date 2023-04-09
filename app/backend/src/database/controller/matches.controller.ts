@@ -6,9 +6,15 @@ export default class ControllerMatches {
     this.matches = matches;
   }
 
-  getAll = async (_req: Request, res: Response) => {
+  getAll = async (req: Request, res: Response) => {
+    const { inProgress } = req.query;
     try {
-      const matches = await this.matches.getAll();
+      let matches = await this.matches.getAll();
+      if (inProgress === 'true') {
+        matches = matches.filter((match) => match.inProgress);
+      } else if (inProgress === 'false') {
+        matches = matches.filter((match) => !match.inProgress);
+      }
       return res.status(200).json(matches);
     } catch (error) {
       res.status(500).json(error);

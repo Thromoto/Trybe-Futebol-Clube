@@ -14,7 +14,7 @@ export default class ServiceTeams {
 
   public async getById(id: string): Promise<ITeams | null> {
     const teamId = await this.team.findByPk(id);
-    if (!teamId) throw new Error('Team not found');
+    // if (!teamId) throw new Error('Team not found');
     return teamId;
   }
 }

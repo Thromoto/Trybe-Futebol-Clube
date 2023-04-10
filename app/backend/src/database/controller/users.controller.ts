@@ -10,7 +10,7 @@ export default class ControllerUsers {
     const { email, password } = req.body;
     try {
       const data = await this.user.login({ email, password });
-      console.log(data);
+      // console.log(data);
 
       if (!data || !compareSync(password, data.password) || password.length < 6) {
         return res.status(401).json({ message: 'Invalid email or password' });
@@ -26,7 +26,7 @@ export default class ControllerUsers {
 
   getRole = async (req: Request, res: Response) => {
     const user = req.body.data;
-    console.log(user);
+    // console.log(user);
     res.status(200).json(user);
   };
 }

@@ -13,4 +13,6 @@ router.get('/', matchesController.getAll);
 
 router.patch('/:id/finish', verifyToken, matchesController.finishingMatch);
 
+router.patch('/:id', verifyToken, matchesController.updateMatches);
+
 export default router;

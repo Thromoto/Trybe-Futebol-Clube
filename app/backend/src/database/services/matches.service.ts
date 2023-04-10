@@ -21,4 +21,10 @@ export default class ServiceMatches {
     const matchId = await this.matches.update({ inProgress: false }, { where: { id } });
     return matchId;
   }
+
+  public async updateMatches(id: number, homeTeamGoals: number, awayTeamGoals: number) {
+    const matchId = await this.matches
+      .update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+    return matchId;
+  }
 }

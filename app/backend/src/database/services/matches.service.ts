@@ -1,6 +1,7 @@
 import { ModelStatic } from 'sequelize';
 import ModelMatches from '../models/Matches';
 import Teams from '../models/Teams';
+import { IMatches, Matches } from '../interfaces';
 
 export default class ServiceMatches {
   constructor(private matches: ModelStatic<ModelMatches>) {
@@ -26,5 +27,14 @@ export default class ServiceMatches {
     const matchId = await this.matches
       .update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
     return matchId;
+  }
+
+  public async createMatch({ homeTeamId,
+    awayTeamId,
+    homeTeamGoals,
+    awayTeamGoals }: IMatches): Promise<Matches> {
+    const newMatch = await this.matches
+      .create({ homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals, inProgress: true });
+    return newMatch;
   }
 }

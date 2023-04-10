@@ -41,4 +41,15 @@ export default class ControllerMatches {
       res.status(500).json(error);
     }
   };
+
+  createMatch = async (req: Request, res: Response) => {
+    try {
+      const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
+      const newMatch = await this.matches
+        .createMatch({ homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals, inProgress: true });
+      return res.status(201).json(newMatch);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  };
 }

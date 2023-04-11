@@ -7,21 +7,14 @@ export default class ControllerTeams {
   }
 
   getAll = async (_req: Request, res: Response) => {
-    try {
-      const team = await this.team.getAll();
-      return res.status(200).json(team);
-    } catch (error) {
-      res.status(500).json(error);
-    }
+    const team = await this.team.getAll();
+    return res.status(200).json(team);
   };
 
   getById = async (req: Request, res: Response) => {
     const { id } = req.params;
-    try {
-      const team = await this.team.getById(id);
-      return res.status(200).json(team);
-    } catch (error) {
-      res.status(500).json(error);
-    }
+
+    const team = await this.team.getById(id);
+    return res.status(200).json(team);
   };
 }

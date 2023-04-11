@@ -8,7 +8,7 @@ export default class ServiceMatches {
     this.matches = matches;
   }
 
-  public async getAll(): Promise<ModelMatches[]> {
+  public async getAll(): Promise<Matches[]> {
     const matches = await this.matches.findAll({
       include: [
         { model: Teams, as: 'homeTeam', attributes: { exclude: ['id'] } },

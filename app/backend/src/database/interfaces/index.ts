@@ -25,3 +25,8 @@ export interface IMatches extends Matches {
   awayTeamId: number;
   awayTeamGoals: number;
 }
+
+export interface IMatchesTeams extends IMatches {
+  homeTeam: ITeams;
+  awayTeam: ITeams;
+}

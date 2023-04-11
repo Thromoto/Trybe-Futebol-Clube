@@ -7,14 +7,13 @@ export default class ServiceTeams {
     this.team = team;
   }
 
-  public async getAll(): Promise<ModelTeams[]> {
+  public async getAll(): Promise<ITeams[]> {
     const teams = await this.team.findAll();
     return teams;
   }
 
   public async getById(id: string): Promise<ITeams | null> {
     const teamId = await this.team.findByPk(id);
-    // if (!teamId) throw new Error('Team not found');
     return teamId;
   }
 }

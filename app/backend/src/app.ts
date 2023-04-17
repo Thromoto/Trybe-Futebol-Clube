@@ -15,6 +15,8 @@ class App {
 
     this.app.use('/matches', router.matchesRouter);
 
+    this.app.use('/leaderboard', router.leaderboardsRouter);
+
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
   }
